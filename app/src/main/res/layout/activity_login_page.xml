@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginPage"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/home_gradient"
+    >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cnx_title"
-        android:textSize="40dp"
-        android:gravity="center"
-        android:textColor="@color/colorSecondaryDark"
-        android:layout_marginTop="50dp"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/field_login"
-        android:layout_gravity="center"
-        android:layout_marginTop="35dp"/>
-
-    <EditText
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/field_pass"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="@string/cnx_btn"
-        android:layout_gravity="center"
-        android:background="@drawable/btn_rounded"
-        android:textColor="@color/colorAccent"
-        android:layout_marginTop="30dp"
-        android:padding="15dp"
-        android:textStyle="bold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_btn"
-                android:layout_gravity="bottom"
-                android:background="@android:color/transparent"/>
+        android:background="@drawable/fruits"
+        android:alpha="0.2"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="cursive"
+            android:gravity="center"
+            android:text="@string/app_title"
+            android:textColor="@color/colorAccent"
+            android:textSize="150dp"
+            android:textStyle="bold"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_cnx"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/btn_rounded"
+                    android:padding="15dp"
+                    android:text="@string/cnx_btn"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
