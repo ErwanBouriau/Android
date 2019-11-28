@@ -5,9 +5,10 @@
     <!-- Page de Connexion -->
     <string name="cnx_title">Se connecter</string>
     <string name="cnx_btn">Connexion</string>
-    <string name="field_login">Login</string>
-    <string name="field_pass">Mot de passe</string>
-    <string name="account_btn"><u>Créer un compte</u></string>
+    <string name="message_internet">Pas de connexion !</string>
+    <string name="message_erreur">Authentification annulée...</string>
+    <string name="message_erreur_inconnue">Erreur inconnue...</string>
+    <string name="message_succes"><u>Authentification réussie !</u></string>
 
     <!-- Page de Création de compte -->
     <string name="creation_title">Créer mon compte</string>
