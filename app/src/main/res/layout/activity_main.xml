@@ -23,18 +23,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:fontFamily="cursive"
             android:gravity="center"
             android:text="@string/app_title"
             android:textColor="@color/colorAccent"
-            android:textSize="150dp"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold"
             />
+
     </LinearLayout>
 
     <LinearLayout
@@ -52,7 +54,7 @@
             android:padding="15dp"
             android:text="@string/tourney8_btn"
             android:textColor="@color/colorAccent"
-            android:textSize="30dp"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold"
             android:layout_marginTop="30dp"/>
 
@@ -65,7 +67,7 @@
             android:padding="15dp"
             android:text="@string/tourney16_btn"
             android:textColor="@color/colorAccent"
-            android:textSize="30dp"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold"
             android:layout_marginTop="30dp"/>
 

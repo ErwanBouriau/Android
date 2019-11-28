@@ -23,14 +23,14 @@
          
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_height="300dp"
             android:fontFamily="cursive"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:text="@string/app_title"
             android:textColor="@color/colorAccent"
-            android:textSize="150dp"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold"
+            android:padding="60dp"
             />
 
         <LinearLayout
@@ -51,7 +51,7 @@
                     android:padding="15dp"
                     android:text="@string/cnx_btn"
                     android:textColor="@color/colorAccent"
-                    android:textSize="30dp"
+                    android:autoSizeTextType="uniform"
                     android:textStyle="bold"
                     android:onClick="onClickLoginButton"/>
 
