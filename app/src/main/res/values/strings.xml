@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">Fruit_Tourney</string>
+    <string name="app_name">Fruit Tourney</string>
+    <string name="app_title">Fruit Tourney</string>
+
+    <!-- Page de Connexion -->
+    <string name="cnx_title">Se connecter</string>
+    <string name="cnx_btn">Connexion</string>
+    <string name="field_login">Login</string>
+    <string name="field_pass">Mot de passe</string>
+    <string name="account_btn">Se connecter</string>
+
+    <!-- Page de Création de compte -->
+    <string name="creation_title">Créer mon compte</string>
+    <string name="validate_btn">Valider</string>
+    <string name="field_passAgain">Retapez le mot de passe</string>
+
+    <!-- Page d'Accueil -->
+    <string name="tourney8_btn">Commencer un tournoi à 8</string>
+    <string name="tourney16_btn">Commencer un tournoi à 16</string>
+
+    <!-- Menu profil -->
+    <string name="stats_btn">Statistiques</string>
+    <string name="profile_btn">Mon profil</string>
+    <string name="disconnect_btn">Deconnexion</string>
 </resources>
