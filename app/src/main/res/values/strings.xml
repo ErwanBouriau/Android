@@ -7,7 +7,7 @@
     <string name="cnx_btn">Connexion</string>
     <string name="field_login">Login</string>
     <string name="field_pass">Mot de passe</string>
-    <string name="account_btn">Se connecter</string>
+    <string name="account_btn"><u>Créer un compte</u></string>
 
     <!-- Page de Création de compte -->
     <string name="creation_title">Créer mon compte</string>
