@@ -9,10 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         })  ;
 
-       // String pseudo = getIntent().getStringExtra("userLogin");
-        configureNavigationViewHeader(/*pseudo*/);
+        configureNavigationViewHeader();
 
     }
 
@@ -74,11 +73,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void configureNavigationViewHeader(/*String pseudo*/)
+    public void configureNavigationViewHeader()
     {
         View viewheader = getLayoutInflater().inflate(R.layout.nav_header, null);
+        TextView textViewLogin = viewheader.findViewById(R.id.navdrawer_name);
 
-        // textViewLogin.setText(pseudo);
+        textViewLogin.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
         navigationView.addHeaderView(viewheader);
     }
