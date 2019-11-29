@@ -70,7 +70,11 @@ public class ProfileActivity extends AppCompatActivity {
         drawerLayout.closeDrawers();
 
         if (item.getItemId() == R.id.menu_home )
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+        if (item.getItemId() == R.id.menu_stats )
+            startActivity(new Intent(this, StatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
 
         return true;
 
