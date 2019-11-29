@@ -40,13 +40,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/texte_co"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/non_co"
+                    android:textSize="20dp"
+                    />
 
                 <Button
                     android:id="@+id/btn_cnx"
                     android:layout_width="400dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_horizontal"
                     android:background="@drawable/btn_rounded"
                     android:padding="15dp"
                     android:text="@string/cnx_btn"
@@ -54,6 +63,20 @@
                     android:autoSizeTextType="uniform"
                     android:textStyle="bold"
                     android:onClick="onClickLoginButton"/>
+
+                <Button
+                    android:id="@+id/btn_deco"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/deco_btn"
+                    android:textColor="@color/colorAccent"
+                    android:background="@drawable/btn_rounded"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:onClick="onClickLogoutButton"
+                    android:visibility="invisible"
+                    />
 
             </LinearLayout>
 

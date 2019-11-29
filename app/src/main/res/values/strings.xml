@@ -5,6 +5,8 @@
     <!-- Page de Connexion -->
     <string name="cnx_title">Se connecter</string>
     <string name="cnx_btn">Connexion</string>
+    <string name="deco_btn">Deconnexion</string>
+    <string name="non_co">Non connecté</string>
     <string name="message_internet">Pas de connexion !</string>
     <string name="message_erreur">Authentification annulée...</string>
     <string name="message_erreur_inconnue">Erreur inconnue...</string>
