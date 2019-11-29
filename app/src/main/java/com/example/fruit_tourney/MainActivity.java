@@ -48,6 +48,11 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    public void onClickTournoi8(View v) {
+            Intent intent = new Intent(this, TournoiActivity.class);
+            startActivity(intent);
+    }
+
     private boolean manageNavigationViewItemClick(MenuItem item)
     {
         item.setChecked(true);

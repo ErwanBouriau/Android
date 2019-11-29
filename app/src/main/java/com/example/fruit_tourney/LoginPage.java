@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 
@@ -40,6 +42,19 @@ public class LoginPage extends BaseActivity {
     }
 
 
+    private void createUserInFirestore(){
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+
+            String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+            UserHelper.createUser(uid, username, email).addOnFailureListener(this.onFailureListener());
+        }
+    }
+
+
     // --------------------
     // NAVIGATION
     // --------------------
@@ -54,6 +69,7 @@ public class LoginPage extends BaseActivity {
                                 Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
                         .build(),
                 RC_SIGN_IN);
+        createUserInFirestore();
     }
 
 

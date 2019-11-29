@@ -16,14 +16,14 @@ public class UserHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createUser(String uid, String username, String psw, String mail) {
-        User userToCreate = new User(uid, username, psw, mail);
+    public static Task<Void> createUser(String uid, String username, String mail) {
+        User userToCreate = new User(uid, username, mail);
         return UserHelper.getUsersCollection().document(uid).set(userToCreate);
     }
 
     // --- GET ---
 
-    public static Task<DocumentSnapshot> getUser(String uid){
+    public static Task<DocumentSnapshot> getIdUser(String uid){
         return UserHelper.getUsersCollection().document(uid).get();
     }
 
@@ -33,11 +33,11 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("username", username);
     }
 
-    public static Task<Void> updatePassword(String uid, String psw) {
+    public static Task<Void> updatePassword(String psw, String uid) {
         return UserHelper.getUsersCollection().document(uid).update("password", psw);
     }
 
-    public static Task<Void> updateEmail(String uid, String mail) {
+    public static Task<Void> updateEmail(String mail, String uid) {
         return UserHelper.getUsersCollection().document(uid).update("email", mail);
     }
 

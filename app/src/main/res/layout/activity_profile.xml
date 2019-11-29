@@ -72,7 +72,8 @@
             android:text="@string/validate_btn"
             android:textColor="@color/colorAccent"
             android:layout_gravity="center"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:onClick="onClickUpdateButton"/>
 
         <Button
             android:layout_width="150dp"
@@ -81,7 +82,8 @@
             android:text="@string/delete_btn"
             android:textColor="@color/colorAccent"
             android:layout_gravity="center"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:onClick="onClickDeleteButton"/>
 
     </LinearLayout>
 
