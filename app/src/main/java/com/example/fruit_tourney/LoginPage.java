@@ -1,7 +1,5 @@
 package com.example.fruit_tourney;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Arrays;
 
 
-public class LoginPage extends AppCompatActivity {
+public class LoginPage extends BaseActivity {
 
     //FOR DATA
     // 1 - Identifier for Sign-In Activity
