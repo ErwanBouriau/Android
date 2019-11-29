@@ -25,7 +25,8 @@ public class LoginPage extends AppCompatActivity {
 
     public void onClickLoginButton(View v) {
         // 3 - Launch Sign-In Activity when user clicked on Login Button
-        this.startSignInActivity();
+        // this.startSignInActivity();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
 
