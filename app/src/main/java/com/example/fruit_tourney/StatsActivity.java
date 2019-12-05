@@ -9,9 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -25,12 +29,9 @@ public class StatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
-        GridView gridView = findViewById(R.id.gridview);
-        FruitAdapter booksAdapter = new FruitAdapter(this);
-        gridView.setAdapter(booksAdapter);
-
         drawerLayout = findViewById(R.id.home_drawer);
         navigationView = findViewById(R.id.nav_view);
+        FlexboxLayout fruitLayout = findViewById(R.id.fruits_layout);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,6 +49,20 @@ public class StatsActivity extends AppCompatActivity {
         })  ;
 
         configureNavigationViewHeader();
+
+        for(int i=1; i<=10; i++) {
+            LinearLayout linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.stats_fruit_layout,null);
+
+            TextView name = linearTMP.findViewById(R.id.fruit_name);
+            name.setText("Salade");
+
+            TextView stat = linearTMP.findViewById(R.id.fruit_stat);
+            stat.setText("100%");
+
+            ImageView img = linearTMP.findViewById(R.id.imageview_stat_fruit);
+            img.setImageResource(R.drawable.salade_de_fruit);
+            fruitLayout.addView(linearTMP);
+        }
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)

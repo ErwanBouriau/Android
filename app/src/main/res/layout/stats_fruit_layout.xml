@@ -5,24 +5,36 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <ImageView
-        android:id="@+id/imageview_stat_fruit"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/salade_de_fruit"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="15dp"
+        android:background="@drawable/card"
+        android:layout_margin="5dp">
+
+        <ImageView
+            android:id="@+id/imageview_stat_fruit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/salade_de_fruit"/>
 
 
-    <TextView
-        android:id="@+id/fruit_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Salade"/>
+        <TextView
+            android:id="@+id/fruit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salade"/>
 
-    <TextView
-        android:id="@+id/fruit_stat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="100%"/>
+        <TextView
+            android:id="@+id/fruit_stat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100%"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -21,17 +21,21 @@
             android:autoSizeTextType="uniform"
             android:textColor="@color/colorSecondary"/>
 
-        <GridView
-            android:id="@+id/gridview"
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/fruits_layout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:numColumns="auto_fit"
-            android:verticalSpacing="24dp"
-            android:horizontalSpacing="10dp"
-            android:stretchMode="spacingWidthUniform"
+            app:flexWrap="wrap"
+            app:alignItems="stretch"
+            app:alignContent="stretch"
+            android:padding="15dp"
+            app:justifyContent="center">
 
-            />
+        </com.google.android.flexbox.FlexboxLayout>
+
+
 
     </LinearLayout>
 
