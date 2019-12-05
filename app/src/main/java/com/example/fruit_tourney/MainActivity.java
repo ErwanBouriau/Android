@@ -1,7 +1,6 @@
 package com.example.fruit_tourney;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -9,12 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -44,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
         configureNavigationViewHeader();
 
+    }
+
+    public void onClickTournoi8(View v) {
+            Intent intent = new Intent(this, TournoiActivity.class);
+            startActivity(intent);
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)
@@ -80,7 +87,14 @@ public class MainActivity extends AppCompatActivity {
     {
         View viewheader = getLayoutInflater().inflate(R.layout.nav_header, null);
         TextView textViewLogin = viewheader.findViewById(R.id.navdrawer_name);
+        ImageView imageViewLogin = viewheader.findViewById(R.id.navdrawer_avatar);
 
+        if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() != null) {
+            Glide.with(this)
+                    .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageViewLogin);
+        }
         textViewLogin.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
         navigationView.addHeaderView(viewheader);

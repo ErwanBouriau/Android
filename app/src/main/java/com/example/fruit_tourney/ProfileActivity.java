@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
     private EditText fieldName;
     private EditText fieldEmail;
@@ -62,6 +62,27 @@ public class ProfileActivity extends AppCompatActivity {
         fieldName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         fieldEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
+    }
+
+    public void onClickDeleteButton(View v) {
+        UserHelper.deleteUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
+        Intent intent = new Intent(this, LoginPage.class);
+        startActivity(intent);
+    }
+
+    public void onClickUpdateButton(View v) {
+        String username = fieldName.getText().toString();
+        String email = fieldEmail.getText().toString();
+        String password = fieldPassword.getText().toString();
+        if(!username.isEmpty()) {
+            UserHelper.updateUsername(username, FirebaseAuth.getInstance().getUid());
+        }
+        if(!email.isEmpty()) {
+            UserHelper.updateEmail(email, FirebaseAuth.getInstance().getUid());
+        }
+        if(!password.isEmpty()) {
+            UserHelper.updatePassword(password, FirebaseAuth.getInstance().getUid());
+        }
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)

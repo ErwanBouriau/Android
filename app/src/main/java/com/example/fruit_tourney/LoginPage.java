@@ -1,7 +1,5 @@
 package com.example.fruit_tourney;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +8,13 @@ import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 
 
-public class LoginPage extends AppCompatActivity {
+public class LoginPage extends BaseActivity {
 
     //FOR DATA
     // 1 - Identifier for Sign-In Activity
@@ -42,6 +42,19 @@ public class LoginPage extends AppCompatActivity {
     }
 
 
+    private void createUserInFirestore(){
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+
+            String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+            UserHelper.createUser(uid, username, email).addOnFailureListener(this.onFailureListener());
+        }
+    }
+
+
     // --------------------
     // NAVIGATION
     // --------------------
@@ -56,6 +69,7 @@ public class LoginPage extends AppCompatActivity {
                                 Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
                         .build(),
                 RC_SIGN_IN);
+        createUserInFirestore();
     }
 
 
