@@ -59,7 +59,10 @@ public class MainActivity extends BaseActivity {
         drawerLayout.closeDrawers();
 
         if (item.getItemId() == R.id.menu_profile )
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+        if (item.getItemId() == R.id.menu_stats )
+            startActivity(new Intent(this, StatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         return true;
 
