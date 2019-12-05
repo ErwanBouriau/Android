@@ -7,13 +7,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -65,24 +72,56 @@ public class ProfileActivity extends BaseActivity {
     }
 
     public void onClickDeleteButton(View v) {
-        UserHelper.deleteUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
-        Intent intent = new Intent(this, LoginPage.class);
-        startActivity(intent);
+        if (fieldPassword.getText().toString().isEmpty()) {
+            Toast toast = Toast.makeText(getApplicationContext(), "ENTREZ VOTRE MDP", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Création des credentials pour la reauthentification
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(user.getEmail(), fieldPassword.getText().toString());
+
+        // Reauthentification de l'utilisateur pour la suppression du compte
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // si la reauthentification passe
+                        if (task.isSuccessful()) {
+                            user.delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            // si le compte est supprimé
+                                            if (task.isSuccessful()) {
+                                                Toast toast = Toast.makeText(getApplicationContext(), "COMPTE SUPPRIMÉ", Toast.LENGTH_SHORT);
+                                                toast.show();
+                                                Intent intent = new Intent(getApplicationContext(), LoginPage.class);
+                                                startActivity(intent);
+                                            }
+                                            // si le compte n'a pas pu etre supprimé
+                                            else {
+                                                Toast toast = Toast.makeText(getApplicationContext(), "ERREUR DE SUPPRESSION", Toast.LENGTH_SHORT);
+                                                toast.show();
+                                            }
+                                        }
+                                    });
+                        }
+                        // Erreur de reauthentification
+                        else {
+                            Toast toast = Toast.makeText(getApplicationContext(), "MDP INCORRECT", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                });
     }
 
     public void onClickUpdateButton(View v) {
         String username = fieldName.getText().toString();
         String email = fieldEmail.getText().toString();
         String password = fieldPassword.getText().toString();
-        if(!username.isEmpty()) {
-            UserHelper.updateUsername(username, FirebaseAuth.getInstance().getUid());
-        }
-        if(!email.isEmpty()) {
-            UserHelper.updateEmail(email, FirebaseAuth.getInstance().getUid());
-        }
-        if(!password.isEmpty()) {
-            UserHelper.updatePassword(password, FirebaseAuth.getInstance().getUid());
-        }
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)

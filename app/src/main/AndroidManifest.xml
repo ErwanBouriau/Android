@@ -15,6 +15,7 @@
             android:name=".TournoiActivity"
             android:screenOrientation="landscape">
         </activity>
+        <activity
             android:name=".StatsActivity"
             android:label="Statistiques"
             android:screenOrientation="landscape"/>

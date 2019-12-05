@@ -63,7 +63,9 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:hint="Entrez votre mot de passe"
+            android:inputType="textPassword"/>
 
         <Button
             android:layout_width="150dp"
