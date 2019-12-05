@@ -70,7 +70,7 @@
         android:background="@color/colorPrimary"
         app:itemTextColor="@color/colorSecondary"
         android:outlineAmbientShadowColor="@color/colorAccent"
-        app:menu="@menu/menu_drawer_view"
+        app:menu="@menu/menu_drawer_home"
         />
 
 

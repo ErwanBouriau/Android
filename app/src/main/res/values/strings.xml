@@ -10,19 +10,24 @@
     <string name="message_internet">Pas de connexion !</string>
     <string name="message_erreur">Authentification annulée...</string>
     <string name="message_erreur_inconnue">Erreur inconnue...</string>
-    <string name="message_succes"><u>Authentification réussie !</u></string>
+    <string name="message_succes">Authentification réussie !</string>
 
-    <!-- Page de Création de compte -->
-    <string name="creation_title">Créer mon compte</string>
-    <string name="validate_btn">Valider</string>
-    <string name="field_passAgain">Retapez le mot de passe</string>
 
     <!-- Page d'Accueil -->
     <string name="tourney8_btn">Commencer un tournoi à 8</string>
     <string name="tourney16_btn">Commencer un tournoi à 16</string>
 
-    <!-- Menu profil -->
+    <!-- Menu drawer -->
     <string name="stats_btn">Statistiques</string>
     <string name="profile_btn">Mon profil</string>
+    <string name="home_btn">Accueil</string>
     <string name="disconnect_btn">Deconnexion</string>
+
+    <!-- Page profil -->
+    <string name="profile_name">Nom</string>
+    <string name="profile_pass">Mot de passe</string>
+    <string name="profile_passAgain">Retapez le mot de passe</string>
+    <string name="profile_email">Email</string>
+    <string name="validate_btn">Mettre à jour</string>
+    <string name="delete_btn">Supprimer le profil</string>
 </resources>

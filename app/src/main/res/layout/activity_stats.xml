@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity"
+    android:id="@+id/home_drawer"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Mes Statistiques"
+            android:gravity="center"
+            android:autoSizeTextType="uniform"
+            android:textColor="@color/colorSecondary"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/fruits_layout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:flexWrap="wrap"
+            app:alignItems="stretch"
+            app:alignContent="stretch"
+            android:padding="15dp"
+            app:justifyContent="center">
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:background="@color/colorPrimary"
+        app:itemTextColor="@color/colorSecondary"
+        android:outlineAmbientShadowColor="@color/colorAccent"
+        app:menu="@menu/menu_drawer_stats"
+        />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

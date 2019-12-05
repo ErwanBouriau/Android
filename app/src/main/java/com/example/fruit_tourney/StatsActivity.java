@@ -9,12 +9,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class StatsActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -22,10 +27,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_stats);
 
         drawerLayout = findViewById(R.id.home_drawer);
         navigationView = findViewById(R.id.nav_view);
+        FlexboxLayout fruitLayout = findViewById(R.id.fruits_layout);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,6 +50,19 @@ public class MainActivity extends AppCompatActivity {
 
         configureNavigationViewHeader();
 
+        for(int i=1; i<=10; i++) {
+            LinearLayout linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.stats_fruit_layout,null);
+
+            TextView name = linearTMP.findViewById(R.id.fruit_name);
+            name.setText("Salade");
+
+            TextView stat = linearTMP.findViewById(R.id.fruit_stat);
+            stat.setText("100%");
+
+            ImageView img = linearTMP.findViewById(R.id.imageview_stat_fruit);
+            img.setImageResource(R.drawable.salade_de_fruit);
+            fruitLayout.addView(linearTMP);
+        }
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)
@@ -51,11 +70,12 @@ public class MainActivity extends AppCompatActivity {
         item.setChecked(true);
         drawerLayout.closeDrawers();
 
+        if (item.getItemId() == R.id.menu_home )
+            startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
         if (item.getItemId() == R.id.menu_profile )
             startActivity(new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
-        if (item.getItemId() == R.id.menu_stats )
-            startActivity(new Intent(this, StatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         return true;
 
