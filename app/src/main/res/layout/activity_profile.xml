@@ -52,20 +52,40 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:text="@string/profile_pass"
-            android:autoSizeTextType="uniform"
-            android:gravity="center"/>
-        <EditText
-            android:id="@+id/field_pass"
-            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:hint="Entrez votre mot de passe"
-            android:inputType="textPassword"/>
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="@string/profile_pass"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <EditText
+                    android:id="@+id/field_pass"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:hint="Entrez votre mot de passe"
+                    android:inputType="textPassword"/>
+                <EditText
+                android:id="@+id/field_passAgain"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:hint="Entrez votre nouveau mot de passe"
+                android:inputType="textPassword"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <Button
             android:layout_width="150dp"

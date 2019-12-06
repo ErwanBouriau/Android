@@ -21,12 +21,14 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class ProfileActivity extends BaseActivity {
 
     private EditText fieldName;
     private EditText fieldEmail;
     private EditText fieldPassword;
+    private EditText fieldPasswordAgain;
 
     private TextView profileName;
 
@@ -63,6 +65,8 @@ public class ProfileActivity extends BaseActivity {
         fieldName = findViewById(R.id.field_name);
         fieldEmail = findViewById(R.id.field_email);
         fieldPassword = findViewById(R.id.field_pass);
+        fieldPasswordAgain = findViewById(R.id.field_passAgain);
+
 
         profileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
@@ -119,9 +123,95 @@ public class ProfileActivity extends BaseActivity {
     }
 
     public void onClickUpdateButton(View v) {
-        String username = fieldName.getText().toString();
-        String email = fieldEmail.getText().toString();
-        String password = fieldPassword.getText().toString();
+        if (fieldPassword.getText().toString().isEmpty()) {
+            Toast toast = Toast.makeText(getApplicationContext(), "ENTREZ VOTRE MDP", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        if (fieldPassword.getText().toString().equals(fieldPasswordAgain.getText().toString())) {
+            Toast toast = Toast.makeText(getApplicationContext(), "MDP IDENTIQUE AU PRECEDENT", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Création des credentials pour la reauthentification
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(user.getEmail(), fieldPassword.getText().toString());
+
+        // Reauthentification de l'utilisateur pour la suppression du compte
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // si la reauthentification passe
+                        if (task.isSuccessful()) {
+                            // si le champ nom n'est pas vide et différent du nom actuel
+                            if (!fieldName.getText().toString().isEmpty() && !fieldName.getText().toString().equals(user.getDisplayName())) {
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fieldName.getText().toString()).build();
+
+                                user.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("update_name", "Name updated.");
+                                                }
+                                                else {
+                                                    Toast toast = Toast.makeText(getApplicationContext(), "ERREUR", Toast.LENGTH_SHORT);
+                                                    toast.show();
+                                                    Log.e("error_update_name", "Name update failed.");
+                                                }
+                                            }
+                                        });
+                            }
+                            // si le champ mail n'est pas vide et différent du mail actuel
+                            if (!fieldEmail.getText().toString().isEmpty() && !fieldEmail.getText().toString().equals(user.getEmail())) {
+                                user.updateEmail(fieldEmail.getText().toString())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("update_mail", "User email address updated.");
+                                                }
+                                                else {
+                                                    Toast toast = Toast.makeText(getApplicationContext(), "ERREUR", Toast.LENGTH_SHORT);
+                                                    toast.show();
+                                                    Log.d("error_update_mail", "User email address update failed.");
+                                                }
+                                            }
+                                        });
+                            }
+                            if (!fieldPasswordAgain.getText().toString().isEmpty()){
+                                    user.updatePassword(fieldPasswordAgain.getText().toString())
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Log.d("update_password", "User password updated.");
+                                                        startActivity(new Intent(getApplicationContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                                    }
+                                                    else {
+                                                        Toast toast = Toast.makeText(getApplicationContext(), "ERREUR", Toast.LENGTH_SHORT);
+                                                        toast.show();
+                                                        Log.d("error_update_password", "User password update failed");
+                                                    }
+                                                }
+                                            });
+                                }
+                            if (fieldPasswordAgain.getText().toString().isEmpty()) {
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                Log.d("update_profile", "User profile successfully updated.");
+                            }
+                        }
+                        // Erreur de reauthentification
+                        else {
+                            Toast toast = Toast.makeText(getApplicationContext(), "MDP INCORRECT", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                });
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)
