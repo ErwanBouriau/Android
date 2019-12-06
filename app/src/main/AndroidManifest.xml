@@ -14,11 +14,14 @@
         <activity
             android:name=".TournoiActivity"
             android:screenOrientation="landscape">
-
         </activity>
+            android:name=".StatsActivity"
+            android:label="Statistiques"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".ProfileActivity"
-            android:label="Mon Profil" />
+            android:label="Mon Profil"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".LoginPage"
             android:screenOrientation="landscape">
@@ -30,7 +33,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="Accueil" />
+            android:label="Accueil"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

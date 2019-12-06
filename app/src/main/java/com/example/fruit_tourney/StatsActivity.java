@@ -10,18 +10,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ProfileActivity extends BaseActivity {
-
-    private EditText fieldName;
-    private EditText fieldEmail;
-    private EditText fieldPassword;
-
-    private TextView profileName;
+public class StatsActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -29,10 +27,11 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_stats);
 
         drawerLayout = findViewById(R.id.home_drawer);
         navigationView = findViewById(R.id.nav_view);
+        FlexboxLayout fruitLayout = findViewById(R.id.fruits_layout);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -51,37 +50,18 @@ public class ProfileActivity extends BaseActivity {
 
         configureNavigationViewHeader();
 
+        for(int i=1; i<=10; i++) {
+            LinearLayout linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.stats_fruit_layout,null);
 
-        profileName = findViewById(R.id.title_profile);
-        fieldName = findViewById(R.id.field_name);
-        fieldEmail = findViewById(R.id.field_email);
-        fieldPassword = findViewById(R.id.field_pass);
+            TextView name = linearTMP.findViewById(R.id.fruit_name);
+            name.setText("Salade");
 
-        profileName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            TextView stat = linearTMP.findViewById(R.id.fruit_stat);
+            stat.setText("100%");
 
-        fieldName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        fieldEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-
-    }
-
-    public void onClickDeleteButton(View v) {
-        UserHelper.deleteUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
-        Intent intent = new Intent(this, LoginPage.class);
-        startActivity(intent);
-    }
-
-    public void onClickUpdateButton(View v) {
-        String username = fieldName.getText().toString();
-        String email = fieldEmail.getText().toString();
-        String password = fieldPassword.getText().toString();
-        if(!username.isEmpty()) {
-            UserHelper.updateUsername(username, FirebaseAuth.getInstance().getUid());
-        }
-        if(!email.isEmpty()) {
-            UserHelper.updateEmail(email, FirebaseAuth.getInstance().getUid());
-        }
-        if(!password.isEmpty()) {
-            UserHelper.updatePassword(password, FirebaseAuth.getInstance().getUid());
+            ImageView img = linearTMP.findViewById(R.id.imageview_stat_fruit);
+            img.setImageResource(R.drawable.salade_de_fruit);
+            fruitLayout.addView(linearTMP);
         }
     }
 
@@ -93,8 +73,8 @@ public class ProfileActivity extends BaseActivity {
         if (item.getItemId() == R.id.menu_home )
             startActivity(new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
-        if (item.getItemId() == R.id.menu_stats )
-            startActivity(new Intent(this, StatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        if (item.getItemId() == R.id.menu_profile )
+            startActivity(new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
 
         return true;
