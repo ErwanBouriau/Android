@@ -22,7 +22,6 @@ public class TournoiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournoi);
-
         ArrayList<StorageReference> allReferences = new ArrayList<StorageReference>();
         initialize(allReferences);
 
@@ -54,6 +53,7 @@ public class TournoiActivity extends AppCompatActivity {
                 System.out.println("listeAll failed !");
             }
         });
+
     }
 
 }

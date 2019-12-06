@@ -41,20 +41,6 @@ public class LoginPage extends BaseActivity {
         startActivity(new Intent(this, LoginPage.class));
     }
 
-
-    private void createUserInFirestore(){
-
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-
-            String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-            UserHelper.createUser(uid, username, email).addOnFailureListener(this.onFailureListener());
-        }
-    }
-
-
     // --------------------
     // NAVIGATION
     // --------------------
@@ -69,7 +55,6 @@ public class LoginPage extends BaseActivity {
                                 Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
                         .build(),
                 RC_SIGN_IN);
-        createUserInFirestore();
     }
 
 
@@ -84,13 +69,19 @@ public class LoginPage extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Button bouttonLogin = (Button) this.findViewById(R.id.btn_cnx);
+        TextView texte = (TextView) this.findViewById(R.id.texte_co);
+        Button bouttonLogout = (Button) this.findViewById(R.id.btn_deco);
+
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Button bouttonLogin = (Button) this.findViewById(R.id.btn_cnx);
             bouttonLogin.setText("JOUER !");
-            TextView texte = (TextView) this.findViewById(R.id.texte_co);
             texte.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-            Button bouttonLogout = (Button) this.findViewById(R.id.btn_deco);
             bouttonLogout.setVisibility(View.VISIBLE);
+        }
+        else {
+            bouttonLogin.setText("Connexion");
+            texte.setText("Non connecté");
+            bouttonLogout.setVisibility(View.INVISIBLE);
         }
     }
 }

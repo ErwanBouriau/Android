@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -87,14 +85,7 @@ public class MainActivity extends BaseActivity {
     {
         View viewheader = getLayoutInflater().inflate(R.layout.nav_header, null);
         TextView textViewLogin = viewheader.findViewById(R.id.navdrawer_name);
-        ImageView imageViewLogin = viewheader.findViewById(R.id.navdrawer_avatar);
 
-        if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() != null) {
-            Glide.with(this)
-                    .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(imageViewLogin);
-        }
         textViewLogin.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
         navigationView.addHeaderView(viewheader);
