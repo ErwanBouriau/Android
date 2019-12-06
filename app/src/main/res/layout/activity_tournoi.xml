@@ -19,7 +19,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_margin="20dp"
-        android:src="@drawable/vs"/>
+        android:src="@drawable/vs" />
 
     <ImageView
         android:id="@+id/fruit2"
