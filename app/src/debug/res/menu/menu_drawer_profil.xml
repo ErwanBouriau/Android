@@ -7,10 +7,13 @@
             android:id="@+id/menu_home"
             android:title="@string/home_btn"
             />
-
         <item
             android:id="@+id/menu_stats"
             android:title="@string/stats_btn"
+            />
+        <item
+            android:id="@+id/menu_deco"
+            android:title="@string/disconnect_btn"
             />
 
     </group>

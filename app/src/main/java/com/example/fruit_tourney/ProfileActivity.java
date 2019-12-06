@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class ProfileActivity extends BaseActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private EditText fieldName;
     private EditText fieldEmail;
@@ -224,6 +224,12 @@ public class ProfileActivity extends BaseActivity {
 
         if (item.getItemId() == R.id.menu_stats )
             startActivity(new Intent(this, StatsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+        if (item.getItemId() == R.id.menu_deco) {
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(this, LoginPage.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        }
 
 
         return true;

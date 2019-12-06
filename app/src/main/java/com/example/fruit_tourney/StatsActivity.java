@@ -76,6 +76,11 @@ public class StatsActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu_profile )
             startActivity(new Intent(this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
+        if (item.getItemId() == R.id.menu_deco) {
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(this, LoginPage.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        }
 
         return true;
 
