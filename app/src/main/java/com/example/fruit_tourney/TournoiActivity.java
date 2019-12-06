@@ -13,6 +13,6 @@ public class TournoiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tournoi);
 
         String tab[] = new String[20];
-        tab = ["Banane.png"];
+
     }
 }
