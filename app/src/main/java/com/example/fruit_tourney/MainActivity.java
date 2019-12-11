@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -49,7 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickTournoi8(View v) {
             Intent intent = new Intent(this, TournoiActivity.class);
+            intent.putExtra("tailleTournoi", 8);
             startActivity(intent);
+    }
+
+    public void onClickTournoi16(View v) {
+        Intent intent = new Intent(this, TournoiActivity.class);
+        intent.putExtra("tailleTournoi", 16);
+        startActivity(intent);
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)
