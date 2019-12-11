@@ -4,26 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TournoiActivity"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center">
-  
-    <ImageView
-        android:id="@+id/fruit1"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Round 1 - Quart de finale"
+        android:textSize="50sp"
+        android:id="@+id/round"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/fruit1"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:onClick="onClickImage" />
 
 
-    <ImageView
-        android:id="@+id/vs"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_margin="20dp"
-        android:src="@drawable/vs" />
+        <ImageView
+            android:id="@+id/vs"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/vs" />
 
-    <ImageView
-        android:id="@+id/fruit2"
-        android:layout_width="300dp"
-        android:layout_height="300dp" />
+        <ImageView
+            android:id="@+id/fruit2"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:onClick="onClickImage" />
+    </LinearLayout>
 
 </LinearLayout>
