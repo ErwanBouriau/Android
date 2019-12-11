@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.protobuf.StringValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -199,11 +200,13 @@ public class TournoiActivity extends AppCompatActivity {
                     GlideApp.with(this)
                             .load(selected.get(0))
                             .into(imageFinale);
+                    addVictory(String.valueOf(selected.get(0)));
                 }
                 else {
                     GlideApp.with(this)
                             .load(selected.get(1))
                             .into(imageFinale);
+                    addVictory(String.valueOf(selected.get(1)));
                 }
             }
         }
@@ -283,11 +286,13 @@ public class TournoiActivity extends AppCompatActivity {
                     GlideApp.with(this)
                             .load(selected.get(0))
                             .into(imageFinale);
+                    addVictory(String.valueOf(selected.get(0)));
                 }
                 else {
                     GlideApp.with(this)
                             .load(selected.get(1))
                             .into(imageFinale);
+                    addVictory(String.valueOf(selected.get(1)));
                 }
 
             }
