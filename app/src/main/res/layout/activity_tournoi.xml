@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         android:text="Round 1 - Quart de finale"
         android:textSize="50sp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/round"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -40,5 +41,16 @@
             android:layout_height="300dp"
             android:onClick="onClickImage" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_rounded"
+        android:text="Retour à l'accueil"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        android:onClick="onClickBoutonRetour"
+        android:id="@+id/boutonRetour"/>
 
 </LinearLayout>
