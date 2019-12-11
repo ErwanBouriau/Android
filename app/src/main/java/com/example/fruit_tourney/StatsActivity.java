@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -63,6 +62,7 @@ public class StatsActivity extends AppCompatActivity {
             img.setImageResource(R.drawable.salade_de_fruit);
             fruitLayout.addView(linearTMP);
         }
+
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)
