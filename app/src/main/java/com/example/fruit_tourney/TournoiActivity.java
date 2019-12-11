@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -22,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TournoiActivity extends AppCompatActivity {
     private ArrayList<StorageReference> allReferences;
@@ -85,6 +90,43 @@ public class TournoiActivity extends AppCompatActivity {
         }
     }
 
+
+    public void addVictory(String fruit) {
+        String fruitId = "failed";
+        // On récupère le nom du fruit dans la référence avec du regex
+        Pattern pattern = Pattern.compile("\\/\\w+.(?=\\.)");
+        Matcher matcher = pattern.matcher(fruit);
+        if (matcher.find())
+        {
+            fruitId = matcher.group(0);
+            // On supprime le /
+            fruitId = fruitId.substring(1);
+        }
+
+    // Access a Cloud Firestore instance from your Activity
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    // Create a new user with a first and last name
+    Map<String, Object> victoire = new HashMap<>();
+        victoire.put("IdFruit", fruitId);
+                victoire.put("IdUser", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                // Add a new document with a generated ID
+                db.collection("Victoires")
+                .add(victoire)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                            Log.d("success_add_victories", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                            Log.e("err_add_victory", "Error adding document", e);
+                            }
+                });
+    }
+
     public void onClickImage(View v) {
         TextView round = this.findViewById(R.id.round);
         compteur++;
@@ -140,36 +182,16 @@ public class TournoiActivity extends AppCompatActivity {
                 GlideApp.with(this)
                         .load(selected.get(0))
                         .into(imageFinale);
+                addVictory(String.valueOf(selected.get(0)));
             }
             else {
                 GlideApp.with(this)
                         .load(selected.get(1))
                         .into(imageFinale);
+                addVictory(String.valueOf(selected.get(1)));
             }
+
         }
     }
 }
 
-//    // LA BDD
-//    // Access a Cloud Firestore instance from your Activity
-//    FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    // Create a new user with a first and last name
-//    Map<String, Object> victoire = new HashMap<>();
-//        victoire.put("IdFruit", "Banane");
-//                victoire.put("IdUser", FirebaseAuth.getInstance().getCurrentUser().getUid());
-//
-//                // Add a new document with a generated ID
-//                db.collection("Victoires")
-//                .add(victoire)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//@Override
-//public void onSuccess(DocumentReference documentReference) {
-//        Log.d("success_add_victories", "DocumentSnapshot added with ID: " + documentReference.getId());
-//        }
-//        })
-//        .addOnFailureListener(new OnFailureListener() {
-//@Override
-//public void onFailure(@NonNull Exception e) {
-//        Log.e("err_add_victory", "Error adding document", e);
-//        }
-//        });
