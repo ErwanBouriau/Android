@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.protobuf.StringValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +38,8 @@ public class TournoiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournoi);
-        this.allReferences = new ArrayList<StorageReference>();
-        this.selected = new ArrayList<StorageReference>();
+        this.allReferences = new ArrayList<>();
+        this.selected = new ArrayList<>();
         compteur = 0;
 
         TextView round = this.findViewById(R.id.round);
@@ -49,7 +48,6 @@ public class TournoiActivity extends AppCompatActivity {
         }
 
         initialize();
-
 
     }
 

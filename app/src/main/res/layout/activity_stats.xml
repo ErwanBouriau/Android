@@ -21,6 +21,11 @@
             android:autoSizeTextType="uniform"
             android:textColor="@color/colorSecondary"/>
 
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/fruits_layout"
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,11 +40,9 @@
 
         </com.google.android.flexbox.FlexboxLayout>
 
-
+        </ScrollView>
 
     </LinearLayout>
-
-
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
