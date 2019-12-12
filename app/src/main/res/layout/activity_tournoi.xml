@@ -12,8 +12,10 @@
         android:layout_height="wrap_content"
         android:text="Round 1 - Quart de finale"
         android:textSize="50sp"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/round"/>
+        android:layout_marginBottom="30dp"
+        android:id="@+id/round"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="sans-serif-condensed-medium"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,23 +15,56 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class StatsActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private FlexboxLayout fruitLayout;
+
+    private ArrayList<StorageReference> allReferences;
+    private CollectionReference fruitsRef;
+    private Query query;
+
+    private int gameCount;
+    private ArrayList<String> allVictories;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+        allReferences = new ArrayList<>();
+        allVictories = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        fruitsRef = db.collection("Victoires");
+        query = fruitsRef.whereEqualTo("IdUser", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         drawerLayout = findViewById(R.id.home_drawer);
         navigationView = findViewById(R.id.nav_view);
-        FlexboxLayout fruitLayout = findViewById(R.id.fruits_layout);
+        fruitLayout = findViewById(R.id.fruits_layout);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,21 +82,80 @@ public class StatsActivity extends AppCompatActivity {
         })  ;
 
         configureNavigationViewHeader();
+        initializeStats();
+    }
 
-        for(int i=1; i<=10; i++) {
-            LinearLayout linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.stats_fruit_layout,null);
+    public void initializeStats() {
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    gameCount = task.getResult().size();
+                    // On rempli le tableau avec les fruits victorieux
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        allVictories.add(document.getData().get("IdFruit").toString());
+                        Log.d("datas_get", allVictories.toString());
+                        // On initialise les cartes
+                    }
+                    initializeCards(allVictories);
+                } else {
+                    Log.d("pouet", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
 
-            TextView name = linearTMP.findViewById(R.id.fruit_name);
-            name.setText("Salade");
+    public void initializeCards(final ArrayList<String> tabVictoires) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        final DecimalFormat df = new DecimalFormat("##.##");
+        storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference image : listResult.getItems()) {
+                    allReferences.add(image);
+                }
 
-            TextView stat = linearTMP.findViewById(R.id.fruit_stat);
-            stat.setText("100%");
+                for(int i=0; i < allReferences.size(); i++) {
+                    LinearLayout linearTMP = (LinearLayout) getLayoutInflater().inflate(R.layout.stats_fruit_layout,null);
 
-            ImageView img = linearTMP.findViewById(R.id.imageview_stat_fruit);
-            img.setImageResource(R.drawable.salade_de_fruit);
-            fruitLayout.addView(linearTMP);
-        }
+                    // On récupère le nom du fruit dans la référence avec du regex
+                    String fruitName = "fruit";
+                    Pattern pattern = Pattern.compile("\\/\\w+.(?=\\.)");
+                    Matcher matcher = pattern.matcher(String.valueOf(allReferences.get(i)));
+                    if (matcher.find())
+                    {
+                        fruitName = matcher.group(0);
+                        // On supprime le /
+                        fruitName = fruitName.substring(1);
+                    }
+                    TextView name = linearTMP.findViewById(R.id.fruit_name);
+                    name.setText(fruitName);
 
+                    TextView stat = linearTMP.findViewById(R.id.fruit_stat);
+                    int occurrences = Collections.frequency(tabVictoires, fruitName);
+                    if (occurrences == 0) {
+                        stat.setText("0%");
+                    }
+                    else {
+                        stat.setText(df.format((float) occurrences / (float) gameCount * 100) + "%");
+                    }
+
+                    ImageView img = linearTMP.findViewById(R.id.imageview_stat_fruit);
+                    GlideApp.with(getApplicationContext())
+                            .load(allReferences.get(i))
+                            .into(img);
+                    fruitLayout.addView(linearTMP);
+
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                System.out.println("listeAll failed !");
+            }
+        });
     }
 
     private boolean manageNavigationViewItemClick(MenuItem item)

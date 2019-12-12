@@ -16,23 +16,26 @@
 
         <ImageView
             android:id="@+id/imageview_stat_fruit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/salade_de_fruit"/>
+            android:src="@drawable/salade_de_fruit" />
 
 
         <TextView
             android:id="@+id/fruit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Salade"/>
+            android:text="Salade"
+            android:textColor="@color/colorSecondaryDark"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/fruit_stat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100%"/>
+            android:text="100%"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
