@@ -51,6 +51,10 @@ public class TournoiActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Initialise le tableau 'allReferences' avec toutes les références des images de fruits
+     */
     public void initialize() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -73,6 +77,9 @@ public class TournoiActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Prend les deux premières références d'images du tableau 'selected' et les charges dans 'fruit1' et 'fruit2'
+     */
     public void loadImage() {
         ImageView image1 = this.findViewById(R.id.fruit1);
         GlideApp.with(this)
@@ -84,7 +91,11 @@ public class TournoiActivity extends AppCompatActivity {
                 .into(image2);
     }
 
-    public void remplirSelected(ArrayList<StorageReference> refs) {
+    /**
+     * Remplit aléatoirement le tableau 'selected' avec des références prit dans 'allRefs'
+     * @param allRefs Tableau contenant toutes les références d'images des fruits
+     */
+    public void remplirSelected(ArrayList<StorageReference> allRefs) {
         ArrayList<Integer> list = new ArrayList<Integer>();
         for (int i=0; i<25; i++) {
             list.add(i);
@@ -92,18 +103,22 @@ public class TournoiActivity extends AppCompatActivity {
         Collections.shuffle(list);
         if(getIntent().getIntExtra("tailleTournoi", 8) == 8) {
             for (int i=0; i<8; i++) {
-                selected.add(refs.get(list.get(i)));
+                selected.add(allRefs.get(list.get(i)));
             }
         }
         else {
             for (int i=0; i<16; i++) {
-                selected.add(refs.get(list.get(i)));
+                selected.add(allRefs.get(list.get(i)));
             }
         }
 
     }
 
 
+    /**
+     * Ajoute dans la base de donnée Firestore une nouvelle ligne pour la victoire du fruit avec l'id de l'utilisateur
+     * @param fruit Correspond au fruit qui a gagné le tournoi
+     */
     public void addVictory(String fruit) {
         String fruitId = "failed";
         // On récupère le nom du fruit dans la référence avec du regex
@@ -252,6 +267,9 @@ public class TournoiActivity extends AppCompatActivity {
                 case 14:
                     round.setText("Finale");
                     break;
+                case 15:
+                    round.setText("Vainqueur");
+                    break;
             }
             if(compteur < 15){
                 switch(v.getId()) {
@@ -299,6 +317,10 @@ public class TournoiActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Fait un retour vers la page d'accueil une fois le tournoi fini
+     * @param v Correspond à la view du boutton
+     */
     public void onClickBoutonRetour(View v) {
         Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
