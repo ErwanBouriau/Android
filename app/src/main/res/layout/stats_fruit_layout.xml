@@ -26,13 +26,16 @@
             android:id="@+id/fruit_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Salade"/>
+            android:text="Salade"
+            android:textColor="@color/colorSecondaryDark"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/fruit_stat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100%"/>
+            android:text="100%"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
