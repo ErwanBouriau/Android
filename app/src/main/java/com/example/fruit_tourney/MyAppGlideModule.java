@@ -11,6 +11,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
 
+/**
+ * Créer le module Glide permettant l'affichage des images.
+ */
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {
 
