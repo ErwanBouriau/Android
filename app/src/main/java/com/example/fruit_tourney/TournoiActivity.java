@@ -29,6 +29,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Correspond à la page du tournoi de fruit où on aura la possibilité de choisir entre deux fruits
+ * en cliquant sur son préféré. Un texte indique la position dans le tournoi.
+ */
 public class TournoiActivity extends AppCompatActivity {
     private ArrayList<StorageReference> allReferences;
     private ArrayList<StorageReference> selected;
@@ -93,6 +97,7 @@ public class TournoiActivity extends AppCompatActivity {
 
     /**
      * Remplit aléatoirement le tableau 'selected' avec des références prit dans 'allRefs'
+     * avec 8 ou 16 fruits suivant le tournoi que l'on a choisit.
      * @param allRefs Tableau contenant toutes les références d'images des fruits
      */
     public void remplirSelected(ArrayList<StorageReference> allRefs) {
@@ -155,6 +160,14 @@ public class TournoiActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Sauvegarde le fruit sur lequel on a cliqué en passant sa référence à la fin du tableau 'selected'
+     * puis supprime les deux premières refs pour pouvoir 'loadImage' sur les prochains fruits.
+     * Incrémente aussi le compteur de tour pour afficher le texte correspondant.
+     * Lorsque le compteur indique la fin du tournoi, 'addVictory' est appellé sur le fruit vainqueur
+     * et un bouton 'retour à l'accueil' apparaît.
+     * @param v Correspond à la view de l'image sur laquelle on clique
+     */
     public void onClickImage(View v) {
         TextView round = this.findViewById(R.id.round);
         compteur++;

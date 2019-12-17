@@ -14,6 +14,10 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Correspond à la page d'accueil principale où on retrouve le drawer avec l'accès à la page profil, statistique
+ * et la possibilité de se déconnecter. On retrouve aussi l'accès aux tournois 8 et 16 fruits.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -46,18 +50,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Redirige vers la page 'TournoiActivity' et commence un tournoi à 8 fruits.
+     * @param v Bouton tournoi 8
+     */
     public void onClickTournoi8(View v) {
             Intent intent = new Intent(this, TournoiActivity.class);
             intent.putExtra("tailleTournoi", 8);
             startActivity(intent);
     }
 
+    /**
+     * Redirige vers la page 'TournoiActivity' et commence un tournoi à 16 fruits.
+     * @param v Bouton tournoi 16
+     */
     public void onClickTournoi16(View v) {
         Intent intent = new Intent(this, TournoiActivity.class);
         intent.putExtra("tailleTournoi", 16);
         startActivity(intent);
     }
 
+    /**
+     * Gère les cliques au sein du drawer
+     * @param item Correspond aux textes des différentes pages du drawer sur lesquelles on clique.
+     * @return retourne true
+     */
     private boolean manageNavigationViewItemClick(MenuItem item)
     {
         item.setChecked(true);
@@ -79,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gère l'ouverture et la fermeture du drawer
+     * @param item icone menu
+     * @return renvoie un booléen suivant si le drawer est ouvert ou pas.
+     */
     public boolean onOptionsItemSelected(MenuItem item)
     {
         if (item.getItemId() == android.R.id.home) {
@@ -94,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Gère l'affichage au sein du drawer et affiche le nom de l'utilisateur.
+     */
     public void configureNavigationViewHeader()
     {
         View viewheader = getLayoutInflater().inflate(R.layout.nav_header, null);

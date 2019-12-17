@@ -14,6 +14,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Arrays;
 
 
+/**
+ * Correspond à la page de login où on peut se créer un compte grâce à Firebase
+ * ou se connecter si l'on en possède déjà un.
+ */
 public class LoginPage extends AppCompatActivity {
 
     //FOR DATA
@@ -24,6 +28,11 @@ public class LoginPage extends AppCompatActivity {
     // ACTIONS
     // --------------------
 
+    /**
+     * Si l'utilisateur est déjà connecté, le redirige vers la 'MainActivity'
+     * sinon appelle 'startSignInActivity'.
+     * @param v Bouton 'connexion'
+     */
     public void onClickLoginButton(View v) {
         // 3 - Launch Sign-In Activity when user clicked on Login Button
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
@@ -35,6 +44,10 @@ public class LoginPage extends AppCompatActivity {
         }
     }
 
+    /**
+     * Déconnecte l'utilisateur et rafraichit la page.
+     * @param v Bouton 'deconnexion'
+     */
     public void onClickLogoutButton(View v) {
         FirebaseAuth.getInstance().signOut();
         finish();
@@ -45,7 +58,10 @@ public class LoginPage extends AppCompatActivity {
     // NAVIGATION
     // --------------------
 
-    // 2 - Launch Sign-In Activity
+    /**
+     *Ouvre une page de création de compte auto-géré par Firebase qui va ajouter l'utilisateur
+     * dans la section authentification de Firebase.
+     */
     private void startSignInActivity(){
         startActivityForResult(
                 AuthUI.getInstance()
@@ -66,6 +82,10 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
     }
 
+    /**
+     * Lors du rechargement de la page, si l'utilisateur est connecté, le bouton 'connexion' devient 'JOUER !',
+     * son nom est affiché et le bouton 'déconnexion' apparaît. Sinon 'non connecté' est affiché.
+     */
     @Override
     protected void onResume() {
         super.onResume();

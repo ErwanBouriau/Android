@@ -37,6 +37,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+/**
+ * Page des statistiques où on voit le pourcentage de réussite de chaque fruit
+ */
 public class StatsActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -85,6 +88,10 @@ public class StatsActivity extends AppCompatActivity {
         initializeStats();
     }
 
+    /**
+     * Initialise le tableau 'allVictories' avec le nom de chaque fruit
+     * et 'gameCount' avec le nombre de partie jouée par l'utilisateur
+     */
     public void initializeStats() {
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -105,6 +112,11 @@ public class StatsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Affiche toutes les cartes de fruits avec leurs images et noms correspondants
+     * ainsi que le pourcentage de victoire par rapport à 'gameCount'
+     * @param tabVictoires Correspond au tableau 'allVictories'
+     */
     public void initializeCards(final ArrayList<String> tabVictoires) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -158,6 +170,11 @@ public class StatsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gère les cliques au sein du drawer
+     * @param item Correspond aux textes des différentes pages du drawer sur lesquelles on clique.
+     * @return retourne true
+     */
     private boolean manageNavigationViewItemClick(MenuItem item)
     {
         item.setChecked(true);
@@ -179,6 +196,11 @@ public class StatsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gère l'ouverture et la fermeture du drawer
+     * @param item icone menu
+     * @return renvoie un booléen suivant si le drawer est ouvert ou pas.
+     */
     public boolean onOptionsItemSelected(MenuItem item)
     {
         if (item.getItemId() == android.R.id.home) {
@@ -194,6 +216,9 @@ public class StatsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Gère l'affichage au sein du drawer et affiche le nom de l'utilisateur.
+     */
     public void configureNavigationViewHeader()
     {
         View viewheader = getLayoutInflater().inflate(R.layout.nav_header, null);

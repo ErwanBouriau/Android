@@ -23,6 +23,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+/**
+ * Page où l'utilisateur peut modifier les informations de son compte.
+ */
 public class ProfileActivity extends AppCompatActivity {
 
     private EditText fieldName;
@@ -75,6 +78,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Supprime le compte de l'utilisateur en vérifiant qu'il s'est bien réauthentifié
+     * et le redirige vers la page 'LoginPage'
+     * @param v Bouton 'supprimer le profil'
+     */
     public void onClickDeleteButton(View v) {
         if (fieldPassword.getText().toString().isEmpty()) {
             Toast toast = Toast.makeText(getApplicationContext(), "ENTREZ VOTRE MDP", Toast.LENGTH_SHORT);
@@ -122,6 +130,10 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Gère la mise à jour des informations du profil en vérifiant bien que l'utilisateur est authentifié
+     * @param v Bouton 'Mettre à jour'
+     */
     public void onClickUpdateButton(View v) {
         if (fieldPassword.getText().toString().isEmpty()) {
             Toast toast = Toast.makeText(getApplicationContext(), "ENTREZ VOTRE MDP", Toast.LENGTH_SHORT);
@@ -214,6 +226,11 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Gère les cliques au sein du drawer
+     * @param item Correspond aux textes des différentes pages du drawer sur lesquelles on clique.
+     * @return retourne true
+     */
     private boolean manageNavigationViewItemClick(MenuItem item)
     {
         item.setChecked(true);
@@ -236,6 +253,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gère l'ouverture et la fermeture du drawer
+     * @param item icone menu
+     * @return renvoie un booléen suivant si le drawer est ouvert ou pas.
+     */
     public boolean onOptionsItemSelected(MenuItem item)
     {
         if (item.getItemId() == android.R.id.home) {
@@ -251,6 +273,9 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Gère l'affichage au sein du drawer et affiche le nom de l'utilisateur.
+     */
     public void configureNavigationViewHeader()
     {
         View viewheader = getLayoutInflater().inflate(R.layout.nav_header, null);
