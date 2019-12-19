@@ -14,12 +14,26 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/title_stats"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Mes Statistiques"
             android:gravity="center"
             android:autoSizeTextType="uniform"
             android:textColor="@color/colorSecondary"/>
+
+        <Button
+            android:id="@+id/btn_change"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@drawable/btn_rounded"
+            android:padding="10dp"
+            android:text="globales"
+            android:textColor="@color/colorAccent"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold"
+            android:onClick="onClickStatsChange"/>
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"

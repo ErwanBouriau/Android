@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class StatsActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private FlexboxLayout fruitLayout;
+    private TextView titleStats;
+    private Button buttonChange;
 
     private ArrayList<StorageReference> allReferences;
     private CollectionReference fruitsRef;
@@ -52,7 +55,6 @@ public class StatsActivity extends AppCompatActivity {
 
     private int gameCount;
     private ArrayList<String> allVictories;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,16 @@ public class StatsActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.home_drawer);
         navigationView = findViewById(R.id.nav_view);
         fruitLayout = findViewById(R.id.fruits_layout);
+        titleStats = findViewById(R.id.title_stats);
+        buttonChange = findViewById(R.id.btn_change);
 
+        if (getIntent().getBooleanExtra("stats_persos", true)) {
+            buttonChange.setText("globales");
+            titleStats.setText("Mes Statistiques");
+        } else {
+            buttonChange.setText("mes stats");
+            titleStats.setText("Statistiques Globales");
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_menu_burger);
@@ -93,23 +104,48 @@ public class StatsActivity extends AppCompatActivity {
      * et 'gameCount' avec le nombre de partie jouée par l'utilisateur
      */
     public void initializeStats() {
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    gameCount = task.getResult().size();
-                    // On rempli le tableau avec les fruits victorieux
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        allVictories.add(document.getData().get("IdFruit").toString());
-                        Log.d("datas_get", allVictories.toString());
-                        // On initialise les cartes
+        // on vérifie si les stats à afficher sont persos ou non
+        if (getIntent().getBooleanExtra("stats_persos", true)) {
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        gameCount = task.getResult().size();
+                        // On rempli le tableau avec les fruits victorieux
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            allVictories.add(document.getData().get("IdFruit").toString());
+                            Log.d("datas_get", allVictories.toString());
+                            // On initialise les cartes
+                        }
+                        initializeCards(allVictories);
+                    } else {
+                        Log.d("pouet", "Error getting documents: ", task.getException());
                     }
-                    initializeCards(allVictories);
-                } else {
-                    Log.d("pouet", "Error getting documents: ", task.getException());
                 }
-            }
-        });
+            });
+        }
+        else {
+            fruitsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        // on vide le tableau des victoires
+                        allVictories.clear();
+
+                        gameCount = task.getResult().size();
+                        // On rempli le tableau avec les fruits victorieux
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            allVictories.add(document.getData().get("IdFruit").toString());
+                            Log.d("datas_get", allVictories.toString());
+                            // On initialise les cartes
+                        }
+                        initializeCards(allVictories);
+                    } else {
+                        Log.d("pouet", "Error getting documents: ", task.getException());
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -168,6 +204,25 @@ public class StatsActivity extends AppCompatActivity {
                 System.out.println("listeAll failed !");
             }
         });
+    }
+
+    public void onClickStatsChange(View v) {
+        Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+        if (getIntent().getBooleanExtra("stats_persos", true)) {
+            // On recharge l'activité
+            intent.putExtra("stats_persos", false);
+            finish();
+            startActivityForResult(intent, 0);
+            overridePendingTransition(0,0); //0 for no animation
+        } else {
+            // On recharge l'activité
+            intent.putExtra("stats_persos", true);
+            finish();
+            startActivityForResult(intent, 0);
+            overridePendingTransition(0,0); //0 for no animation
+        }
     }
 
     /**
