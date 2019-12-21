@@ -61,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         })  ;
 
-        configureNavigationViewHeader();
+       configureNavigationViewHeader();
 
 
         profileName = findViewById(R.id.title_profile);
